@@ -8,7 +8,7 @@ from django.db.models.functions import ExtractMonth
 from fire.forms import IncidedentForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from fire.forms import FireStationForm
+from fire.forms import FireStationForm, LocationForm, IncidedentForm, FireFightersForm, FireTruckForm, WeatherConditonForm
 
 from django.db.models import Count
 from datetime import datetime
@@ -173,14 +173,6 @@ class FireStationList(ListView):
     template_name = 'FireStation_list.html'
     paginate_by = 5
     
-    '''def get_queryset(self, *args, **kwargs):
-        qs = super(Organizationlist, self).get_queryset(*args, **kwargs)
-        if self.request.GET.get("q") != None:
-            query = self.request.GET.get('q')
-            qs = qs.filter(Q(name__icontains=query) | Q(description__icontains=query)|
-                           Q(college__college_name__icontains=query))
-        return qs'''
-
 class FireStationCreateView(CreateView):
     model = FireStation
     form_class = FireStationForm
@@ -197,3 +189,27 @@ class FireStationDeleteView(DeleteView):
     model = FireStation
     template_name = 'FireStation_del.html'
     success_url = reverse_lazy('firestation-list')
+
+
+class FireTrucksList(ListView):
+    model = FireTruck
+    content_object_name = 'firetrucks'
+    template_name = 'Firetrucks_list.html'
+    paginate_by = 5
+
+class FireTrucksCreateView(CreateView):
+    model = FireTruck
+    form_class = FireTruckForm
+    template_name = 'Firetrucks_add.html'
+    success_url = reverse_lazy('firetrucks-list')
+
+class FireTrucksUpdateView(UpdateView):
+    model = FireTruck
+    form_class = FireTruckForm
+    template_name = 'Firetrucks_edit.html'
+    success_url = reverse_lazy('firetrucks-list')
+
+class FireTrucksDeleteView(DeleteView):
+    model = FireTruck
+    template_name = 'Firetrucks_del.html'
+    success_url = reverse_lazy('firetrucks-list')
