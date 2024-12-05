@@ -5,10 +5,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db import connection
 from django.http import JsonResponse
 from django.db.models.functions import ExtractMonth
-from fire.forms import IncidedentForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from fire.forms import FireStationForm, LocationForm, IncidedentForm, FireFightersForm, FireTruckForm, WeatherConditonForm
+from fire.forms import FireStationForm, LocationForm, IncidentForm, FireFightersForm, FireTruckForm, WeatherConditonForm
 
 from django.db.models import Count
 from datetime import datetime
@@ -237,3 +236,27 @@ class FireFightersDeleteView(DeleteView):
     model = Firefighters
     template_name = 'Firefighters_del.html'
     success_url = reverse_lazy('firefighters-list')
+
+
+class IncidentList(ListView):
+    model = Incident
+    content_object_name = 'Incident'
+    template_name = 'Incident_list.html'
+    paginate_by = 5
+
+class IncidentCreateView(CreateView):
+    model = Incident
+    form_class = IncidentForm
+    template_name = 'Incident_add.html'
+    success_url = reverse_lazy('incident-list')
+
+class IncidentUpdateView(UpdateView):
+    model = Incident
+    form_class = IncidentForm
+    template_name = 'Incident_edit.html'
+    success_url = reverse_lazy('incident-list')
+
+class IncidentDeleteView(DeleteView):
+    model = Incident
+    template_name = 'Incident_del.html'
+    success_url = reverse_lazy('incident-list')
