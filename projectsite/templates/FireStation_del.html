@@ -6,18 +6,18 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Delete Organization</div>
+                        <div class="card-title">Delete Fire Station</div>
                         <div class="card-category">Page Subtitle</div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="card-body">
-                            <form class="" action="" method="post" novalidate>
-                                <p>Are you sure you want to delete "{{ object }}"?</p>
-                            {% csrf_token %} {% include 'includes/form.html' %}
+                            <form class="" action="{% url 'firestation-delete' object.id %}" method="post">
+                                <p>Are you sure you want to delete "{{ object.name }}"?</p>
+                            {% csrf_token %} 
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-3">
-                                        <button type="submit" class="btn btn-primary btn-rounded">Submit</button>
+                                        <button type="submit" class="btn btn-primary btn-rounded">Delete</button>
                                     </div>
                                 </div>
                             </form>

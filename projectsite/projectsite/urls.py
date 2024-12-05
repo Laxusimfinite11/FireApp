@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from fire.views import HomePageView, FireStationList, FireStationCreateView, ChartView, PieCountbySeverity,LineCountbyMonth, MultilineIncidentTop3Country, multipleBarbySeverity
+from fire.views import HomePageView, FireStationList, FireStationCreateView, FireStationUpdateView, FireStationDeleteView, ChartView, PieCountbySeverity,LineCountbyMonth, MultilineIncidentTop3Country, multipleBarbySeverity
 from fire import views
 
 urlpatterns = [
@@ -16,4 +16,6 @@ urlpatterns = [
 
     path('firestation_list', FireStationList.as_view(), name='firestation-list'),
     path('firestation_list/add', FireStationCreateView.as_view(), name='firestation-add'),
+    path('firestation_list/<pk>', FireStationUpdateView.as_view(), name='firestation-update'),
+    path('firestation_list/<pk>/delete', FireStationDeleteView.as_view(), name='firestation-delete'),
 ]
