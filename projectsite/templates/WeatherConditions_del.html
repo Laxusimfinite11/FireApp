@@ -6,14 +6,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Delete Fire Station</div>
+                        <div class="card-title">Delete Weather Condition</div>
                         <div class="card-category">Page Subtitle</div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="card-body">
-                            <form class="" action="{% url 'firestation-delete' object.id %}" method="post">
-                                <p>Are you sure you want to delete "{{ object.name }}"?</p>
+                            <form class="" action="{% url 'weather-delete' object.id %}" method="post">
+                                <p>Are you sure you want to delete "{{ object.incident }}: {{ object.weather_description }}"?</p>
                             {% csrf_token %} 
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-3">

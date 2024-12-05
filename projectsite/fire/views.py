@@ -284,3 +284,27 @@ class LocationDeleteView(DeleteView):
     model = Locations
     template_name = 'Locations_del.html'
     success_url = reverse_lazy('location-list')
+
+
+class WeatherConditionList(ListView):
+    model = WeatherConditions
+    content_object_name = 'WeatherCondition'
+    template_name = 'WeatherConditions_list.html'
+    paginate_by = 5
+
+class WeatherConditionCreateView(CreateView):
+    model = WeatherConditions
+    form_class = WeatherConditonForm
+    template_name = 'WeatherConditions_add.html'
+    success_url = reverse_lazy('weather-list')
+
+class WeatherConditionUpdateView(UpdateView):
+    model = WeatherConditions
+    form_class = WeatherConditonForm
+    template_name = 'WeatherConditions_edit.html'
+    success_url = reverse_lazy('weather-list')
+
+class WeatherConditionDeleteView(DeleteView):
+    model = WeatherConditions
+    template_name = 'WeatherConditions_del.html'
+    success_url = reverse_lazy('weather-list')
