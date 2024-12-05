@@ -72,6 +72,9 @@ class FireTruck(BaseModel):
     capacity = models.CharField(max_length=150)  # water
     station = models.ForeignKey(FireStation, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.truck_number}"
+
 
 class WeatherConditions(BaseModel):
     incident = models.ForeignKey(Incident, on_delete=models.CASCADE)

@@ -260,3 +260,27 @@ class IncidentDeleteView(DeleteView):
     model = Incident
     template_name = 'Incident_del.html'
     success_url = reverse_lazy('incident-list')
+
+
+class LocationList(ListView):
+    model = Locations
+    content_object_name = 'Location'
+    template_name = 'Locations_list.html'
+    paginate_by = 5
+
+class LocationCreateView(CreateView):
+    model = Locations
+    form_class = LocationForm
+    template_name = 'Locations_add.html'
+    success_url = reverse_lazy('location-list')
+
+class LocationUpdateView(UpdateView):
+    model = Locations
+    form_class = LocationForm
+    template_name = 'Locations_edit.html'
+    success_url = reverse_lazy('location-list')
+
+class LocationDeleteView(DeleteView):
+    model = Locations
+    template_name = 'Locations_del.html'
+    success_url = reverse_lazy('location-list')
