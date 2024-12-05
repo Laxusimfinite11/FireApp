@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from fire.views import HomePageView, FireStationList, FireStationCreateView, FireStationUpdateView, FireStationDeleteView, FireTrucksList, FireTrucksCreateView, FireTrucksUpdateView, FireTrucksDeleteView, ChartView, PieCountbySeverity,LineCountbyMonth, MultilineIncidentTop3Country, multipleBarbySeverity
+from fire.views import HomePageView, FireFightersList,FireFightersCreateView, FireFightersUpdateView, FireFightersDeleteView, FireStationList, FireStationCreateView, FireStationUpdateView, FireStationDeleteView, FireTrucksList, FireTrucksCreateView, FireTrucksUpdateView, FireTrucksDeleteView, ChartView, PieCountbySeverity,LineCountbyMonth, MultilineIncidentTop3Country, multipleBarbySeverity
 from fire import views
 
 urlpatterns = [
@@ -23,4 +23,9 @@ urlpatterns = [
     path('firetrucks_list/add', FireTrucksCreateView.as_view(), name='firetrucks-add'),
     path('firetrucks_list/<pk>', FireTrucksUpdateView.as_view(), name='firetrucks-update'),
     path('firetrucks_list/<pk>/delete', FireTrucksDeleteView.as_view(), name='firetrucks-delete'),
+
+    path('firefighters_list', FireFightersList.as_view(), name='firefighters-list'),
+    path('firefighters_list/add', FireFightersCreateView.as_view(), name='firefighters-add'),
+    path('firefighters_list/<pk>', FireFightersUpdateView.as_view(), name='firefighters-update'),
+    path('firefighters_list/<pk>/delete', FireFightersDeleteView.as_view(), name='firefighters-delete'),
 ]

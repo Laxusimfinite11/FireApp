@@ -12,7 +12,7 @@
 
                     <div class="col-md-6">
                         <div class="card-body">
-                            <form class="" action="{% url 'firestation-delete' object.id %}" method="post">
+                            <form class="" action="{% url 'firefighters-delete' object.id %}" method="post">
                                 <p>Are you sure you want to delete "{{ object.name }}"?</p>
                             {% csrf_token %} 
                                 <div class="form-group">
