@@ -1,12 +1,21 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from fire.models import Locations, Incident, FireStation
+from fire.models import Locations, Incident, FireStation, Firefighters, FireTruck, WeatherConditions
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db import connection
 from django.http import JsonResponse
 from django.db.models.functions import ExtractMonth
+from fire.forms import IncidedentForm
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from fire.forms import FireStationForm
 
 from django.db.models import Count
 from datetime import datetime
+
+from typing import Any
+from django.db.models.query import QuerySet
+from django.db.models import Q
 
 class HomePageView(ListView):
     model = Locations
@@ -155,3 +164,37 @@ def map_station(request):
 
     # Render the template with the fire station data
     return render(request, 'map_station.html', context)
+
+
+
+class FireStationList(ListView):
+    model = FireStation
+    content_object_name = 'firestation'
+    template_name = 'FireStation_list.html'
+    paginate_by = 5
+    
+    '''def get_queryset(self, *args, **kwargs):
+        qs = super(Organizationlist, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get("q") != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(name__icontains=query) | Q(description__icontains=query)|
+                           Q(college__college_name__icontains=query))
+        return qs'''
+
+class FireStationCreateView(CreateView):
+    model = FireStation
+    form_class = FireStationForm
+    template_name = 'FireStation_add.html'
+    success_url = reverse_lazy('firestation-list')
+
+class FireStationUpdateView(UpdateView):
+    model = FireStation
+    form_class = FireStationForm
+    template_name = 'FireStation_edit.html'
+    success_url = reverse_lazy('organization-list')
+
+class FireStationDeleteView(DeleteView):
+    model = FireStation
+    form_class = FireStationForm
+    template_name = 'FireStation_del.html'
+    success_url = reverse_lazy('organization-list')
