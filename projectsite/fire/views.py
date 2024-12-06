@@ -144,6 +144,8 @@ def multipleBarbySeverity(request):
     
     return JsonResponse(result)
 
+
+#Map
 def map_station(request):
     # Retrieve fire station data from the database
     fireStations = FireStation.objects.values('name', 'latitude', 'longitude')
@@ -165,7 +167,27 @@ def map_station(request):
     return render(request, 'map_station.html', context)
 
 
+def map_incident(request):
+    # Retrieve fire station data from the database
+    Incident = Locations.objects.values('name', 'latitude', 'longitude')
 
+    # Convert latitude and longitude to float for proper handling in JavaScript
+    for Inc in Incident:
+        Inc['latitude'] = float(Inc['latitude'])
+        Inc['longitude'] = float(Inc['longitude'])
+
+    # Convert QuerySet to a list
+    Incident_list = list(Incident)
+
+    # Prepare context to pass to the template
+    context = {
+        'fireStations': Incident_list,
+    }
+
+    # Render the template with the fire station data
+    return render(request, 'map_incident.html', context)
+
+#CRUD Admin
 class FireStationList(ListView):
     model = FireStation
     content_object_name = 'firestation'

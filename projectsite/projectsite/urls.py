@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from fire.views import HomePageView, WeatherConditionList, WeatherConditionCreateView, WeatherConditionUpdateView, WeatherConditionDeleteView,LocationList, LocationCreateView, LocationUpdateView, LocationDeleteView, IncidentList, IncidentCreateView, IncidentUpdateView, IncidentDeleteView, FireFightersList,FireFightersCreateView, FireFightersUpdateView, FireFightersDeleteView, FireStationList, FireStationCreateView, FireStationUpdateView, FireStationDeleteView, FireTrucksList, FireTrucksCreateView, FireTrucksUpdateView, FireTrucksDeleteView, ChartView, PieCountbySeverity,LineCountbyMonth, MultilineIncidentTop3Country, multipleBarbySeverity
+from fire.views import HomePageView, WeatherConditionList, WeatherConditionCreateView, WeatherConditionUpdateView, WeatherConditionDeleteView,LocationList, LocationCreateView, LocationUpdateView, LocationDeleteView, IncidentList, IncidentCreateView, IncidentUpdateView, IncidentDeleteView, FireFightersList,FireFightersCreateView, FireFightersUpdateView, FireFightersDeleteView, FireStationList, FireStationCreateView, FireStationUpdateView, FireStationDeleteView, FireTrucksList, FireTrucksCreateView, FireTrucksUpdateView, FireTrucksDeleteView, ChartView, PieCountbySeverity, LineCountbyMonth, MultilineIncidentTop3Country, multipleBarbySeverity
 from fire import views
 
 urlpatterns = [
@@ -11,8 +11,10 @@ urlpatterns = [
     path('chart/', PieCountbySeverity, name='chart'),
     path('lineChart/', LineCountbyMonth, name='chart'),
     path('multilineChart/', MultilineIncidentTop3Country, name='chart'),
-    path('stations', views.map_station, name='map-station'),
     path('multiBarChart/', multipleBarbySeverity, name='chart'),
+
+    path('stations', views.map_station, name='map-station'),
+    path('incident', views.map_incident, name='map-incident'),
 
     path('firestation_list', FireStationList.as_view(), name='firestation-list'),
     path('firestation_list/add', FireStationCreateView.as_view(), name='firestation-add'),
