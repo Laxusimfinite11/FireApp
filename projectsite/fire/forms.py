@@ -14,6 +14,9 @@ class IncidentForm(ModelForm):
     class Meta:
         model= Incident
         fields = "__all__"
+        widgets = {
+            'date_joined': forms.DateInput(attrs={'type':'date'})
+        }
         
 
 class FireStationForm(ModelForm):

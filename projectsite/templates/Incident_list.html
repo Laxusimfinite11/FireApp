@@ -45,7 +45,13 @@
                                 <tr>
                                     <td>{{ object.location }}</td>
                                     <td>{{ object.date_time }}</td>
-                                    <td>{{ object.severity_level }}</td>
+                                    {% if object.severity_level == 'Minor Fire' %}
+                                        <td style="color: #ffcc00;">{{ object.severity_level }}</td>
+                                    {% elif object.severity_level == 'Moderate Fire' %}
+                                        <td style="color: #ff9966;">{{ object.severity_level }}</td>
+                                    {% elif object.severity_level == 'Major Fire' %}
+                                        <td style="color: #cc3300;">{{ object.severity_level }}</td>
+                                    {% endif %}
                                     <td>{{ object.description }}</td>
                                     <td>
                                         <a href="incident_list/{{ object.id }}">Edit</a>

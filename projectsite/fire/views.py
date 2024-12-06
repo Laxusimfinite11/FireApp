@@ -194,6 +194,16 @@ class FireStationList(ListView):
     content_object_name = 'firestation'
     template_name = 'FireStation_list.html'
     paginate_by = 5
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(FireStationList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get('q') != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(name__icontains=query) | Q(latitude__icontains=query) |
+                           Q(longitude__icontains=query) | Q(address__icontains=query)
+                             | Q(city__icontains=query) | Q(country__icontains=query))
+        
+        return qs
     
 class FireStationCreateView(CreateView):
     model = FireStation
@@ -237,6 +247,15 @@ class FireTrucksList(ListView):
     content_object_name = 'firetrucks'
     template_name = 'Firetrucks_list.html'
     paginate_by = 5
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(FireTrucksList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get('q') != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(truck_number__icontains=query) | Q(model__icontains=query) |
+                           Q(capacity__icontains=query) | Q(station__name__icontains=query))
+        
+        return qs
     
 
 class FireTrucksCreateView(CreateView):
@@ -282,6 +301,15 @@ class FireFightersList(ListView):
     template_name = 'Firefighters_list.html'
     paginate_by = 5
 
+    def get_queryset(self, *args, **kwargs):
+        qs = super(FireFightersList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get('q') != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(name__icontains=query) | Q(rank__icontains=query) |
+                           Q(experience_level__icontains=query) | Q(station__name__icontains=query))
+        
+        return qs
+
 class FireFightersCreateView(CreateView):
     model = Firefighters
     form_class = FireFightersForm
@@ -324,6 +352,15 @@ class IncidentList(ListView):
     content_object_name = 'Incident'
     template_name = 'Incident_list.html'
     paginate_by = 5
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(IncidentList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get('q') != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(location__name__icontains=query) | Q(date_time__icontains=query) |
+                           Q(severity_level__icontains=query) | Q(description__icontains=query))
+        
+        return qs
 
 class IncidentCreateView(CreateView):
     model = Incident
@@ -368,6 +405,16 @@ class LocationList(ListView):
     template_name = 'Locations_list.html'
     paginate_by = 5
 
+    def get_queryset(self, *args, **kwargs):
+        qs = super(LocationList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get('q') != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(name__icontains=query) | Q(latitude__icontains=query) |
+                           Q(longitude__icontains=query) | Q(address__icontains=query)
+                             | Q(city__icontains=query) | Q(country__icontains=query))
+        
+        return qs
+
 class LocationCreateView(CreateView):
     model = Locations
     form_class = LocationForm
@@ -409,6 +456,16 @@ class WeatherConditionList(ListView):
     content_object_name = 'WeatherCondition'
     template_name = 'WeatherConditions_list.html'
     paginate_by = 5
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(WeatherConditionList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get('q') != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(incident__location__name__icontains=query) | Q(temperature__icontains=query) |
+                           Q(humidity__icontains=query) | Q(wind_speed__icontains=query)
+                             | Q(weather_description__icontains=query))
+        
+        return qs
 
 class WeatherConditionCreateView(CreateView):
     model = WeatherConditions
