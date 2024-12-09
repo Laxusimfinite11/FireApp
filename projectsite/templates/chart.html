@@ -513,11 +513,11 @@
       })
       .catch((error) => console.error("Error fetching data:", error));
 
-      fetch("/bubbleChart/")
+      fetch("/bubbleChart/")  // Make sure the endpoint matches the URL defined in urls.py
       .then((response) => response.json())
       .then((result_with_severity_data) => {
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        
+    
         // Helper to extract incident data
         const extractIncidentData = (countryData) =>
           months.map((month, index) => {
@@ -529,7 +529,7 @@
               r: incident.severity * 5,  // Severity level scaled as radius (r)
             };
           });
-
+    
         const countries = Object.keys(result_with_severity_data);
         const dataPoints = countries.reduce((acc, country) => {
           const countryData = result_with_severity_data[country];
@@ -542,9 +542,9 @@
           });
           return acc;
         }, []);
-
+    
         const ctx = document.getElementById("bubbleChart").getContext("2d");
-
+    
         new Chart(ctx, {
           type: "bubble",
           data: {
@@ -583,6 +583,7 @@
         });
       })
       .catch((error) => console.error("Error fetching data:", error));
+    
 
     // Helper function to generate random color
     function getRandomColor(alpha = 1) {

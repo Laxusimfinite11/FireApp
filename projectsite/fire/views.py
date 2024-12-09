@@ -128,6 +128,48 @@ def multiline_incident_top3_country(request):
 
     return JsonResponse(result)
 
+def bubble_chart_data(request):
+    # Fetch incidents and related location data
+    incidents = Incident.objects.all()
+    
+    # Prepare the data structure to store incidents by country and month
+    data = defaultdict(lambda: defaultdict(lambda: {'count': 0, 'severity': 0}))
+
+    # Process the incidents and populate the data structure
+    for incident in incidents:
+        # Format the month as '01', '02', etc.
+        month_str = incident.date_time.strftime("%m")
+        # Country for aggregation
+        country = incident.location.country
+        # Add count (1 for each incident) and severity (as severity level)
+        severity_map = {
+            'Minor Fire': 1,
+            'Moderate Fire': 2,
+            'Major Fire': 3
+        }
+        severity = severity_map.get(incident.severity_level, 0)
+
+        # Update the data structure
+        data[country][month_str] = {
+            'count': data[country][month_str]['count'] + 1,
+            'severity': max(data[country][month_str]['severity'], severity)  # Keep max severity
+        }
+
+    # Convert the data to the required format for the bubble chart
+    result = {}
+    for country, months_data in data.items():
+        # Convert months_data into a list of dictionaries as expected by the bubble chart
+        country_data = {}
+        for month, values in months_data.items():
+            country_data[month] = {
+                'count': values['count'],
+                'severity': values['severity']
+            }
+        result[country] = country_data
+
+    # Return the result as JSON
+    return JsonResponse(result)
+
 def multipleBarbySeverity(request):
     query = '''
     SELECT fi.severity_level, strftime('%m', fi.date_time) AS month, COUNT(fi.id) AS incident_count

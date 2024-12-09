@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from fire.views import HomePageView, WeatherConditionList, WeatherConditionCreateView, WeatherConditionUpdateView, WeatherConditionDeleteView,LocationList, LocationCreateView, LocationUpdateView, LocationDeleteView, IncidentList, IncidentCreateView, IncidentUpdateView, IncidentDeleteView, FireFightersList,FireFightersCreateView, FireFightersUpdateView, FireFightersDeleteView, FireStationList, FireStationCreateView, FireStationUpdateView, FireStationDeleteView, FireTrucksList, FireTrucksCreateView, FireTrucksUpdateView, FireTrucksDeleteView, ChartView, PieCountbySeverity, LineCountbyMonth, multiline_incident_top3_country, multipleBarbySeverity, DoughnutChartData
+from fire.views import HomePageView, WeatherConditionList, WeatherConditionCreateView, WeatherConditionUpdateView, WeatherConditionDeleteView,LocationList, LocationCreateView, LocationUpdateView, LocationDeleteView, IncidentList, IncidentCreateView, IncidentUpdateView, IncidentDeleteView, FireFightersList,FireFightersCreateView, FireFightersUpdateView, FireFightersDeleteView, FireStationList, FireStationCreateView, FireStationUpdateView, FireStationDeleteView, FireTrucksList, FireTrucksCreateView, FireTrucksUpdateView, FireTrucksDeleteView, ChartView, PieCountbySeverity, LineCountbyMonth, multiline_incident_top3_country, multipleBarbySeverity, DoughnutChartData, bubble_chart_data
 from fire import views
 
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('dashboard_chart', ChartView.as_view(), name='dashboard-chart'),
     path('chart/', PieCountbySeverity, name='chart'),
     path('doughnutchart/', views.DoughnutChartData, name='doughnut_chart'),
+    path('doughnutchart/', views.bubble_chart_data, name='doughnut_chart'),
     path('lineChart/', LineCountbyMonth, name='chart'),
     path('multilineChart/', multiline_incident_top3_country, name='chart'),
     path('multiBarChart/', multipleBarbySeverity, name='chart'),
