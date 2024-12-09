@@ -266,7 +266,8 @@ class FireTrucksCreateView(CreateView):
 
     def form_valid(self, form):
         firetrucks_name = form.instance.truck_number
-        messages.success(self.request, f'{firetrucks_name} has been successfully added.')
+        firetrucks_model = form.instance.model
+        messages.success(self.request, f'Truck Number: {firetrucks_name} - Model: {firetrucks_model} has been successfully added.')
 
         return super().form_valid(form)
 
@@ -278,7 +279,8 @@ class FireTrucksUpdateView(UpdateView):
 
     def form_valid(self, form):
         firetrucks_name = form.instance.truck_number
-        messages.success(self.request, f'{firetrucks_name} has been successfully updated.')
+        firetrucks_model = form.instance.model
+        messages.success(self.request, f'Truck Number: {firetrucks_name} - Model: {firetrucks_model} has been successfully updated.')
 
         return super().form_valid(form)
 
@@ -290,7 +292,8 @@ class FireTrucksDeleteView(DeleteView):
     def form_valid(self, form):
         obj = self.get_object()
         firetrucks_name = obj.truck_number
-        messages.success(self.request, f'{firetrucks_name} has been successfully deleted.')
+        firetrucks_model = form.instance.model
+        messages.success(self.request, f'Truck Number: {firetrucks_name} - Model: {firetrucks_model} has been successfully deleted.')
 
         return super().form_valid(form)
 

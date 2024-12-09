@@ -1,4 +1,24 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from datetime import date,datetime
+
+def validate_negative(value):
+    if value < 0:
+        raise ValidationError(
+            _("%(value)s is invalid."),
+            params={"value": value},
+        )
+
+def validate_nofuture(value):
+    if isinstance(value, datetime):
+        value = value.date()
+    
+    if value >= date.today():
+        raise ValidationError(
+            _("%(value)s is invalid. The date cannot be today or in the future."),
+            params={"value": value},
+        )
 
 
 class BaseModel(models.Model):
@@ -28,7 +48,7 @@ class Incident(BaseModel):
         ('Major Fire', 'Major Fire'),
     )
     location = models.ForeignKey(Locations, on_delete=models.CASCADE)
-    date_time = models.DateTimeField(blank=True, null=True)
+    date_time = models.DateTimeField(blank=True, null=True, validators=[validate_nofuture])
     severity_level = models.CharField(max_length=45, choices=SEVERITY_CHOICES)
     description = models.CharField(max_length=250)
 
@@ -78,9 +98,9 @@ class FireTruck(BaseModel):
 
 class WeatherConditions(BaseModel):
     incident = models.ForeignKey(Incident, on_delete=models.CASCADE)
-    temperature = models.DecimalField(max_digits=10, decimal_places=2)
-    humidity = models.DecimalField(max_digits=10, decimal_places=2)
-    wind_speed = models.DecimalField(max_digits=10, decimal_places=2)
+    temperature = models.DecimalField(max_digits=10, decimal_places=2, validators=[validate_negative])
+    humidity = models.DecimalField(max_digits=10, decimal_places=2, validators=[validate_negative])
+    wind_speed = models.DecimalField(max_digits=10, decimal_places=2, validators=[validate_negative])
     weather_description = models.CharField(max_length=150)
 
     def __str__(self):
