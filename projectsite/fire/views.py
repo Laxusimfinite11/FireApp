@@ -84,9 +84,6 @@ def LineCountbyMonth(request):
     
     return JsonResponse(result_with_month_names)
 
-from django.http import JsonResponse
-from django.db import connection
-
 def multiline_incident_top3_country(request):
     query = '''
     SELECT fl.country, strftime('%m', fi.date_time) AS month, COUNT(fi.id) AS incident_count 
